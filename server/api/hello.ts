@@ -1,5 +1,6 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
-
-export default async (req: VercelRequest, res: VercelResponse) => {
-  res.status(200).send('Hello from the serverless function!');
-};
+export default defineEventHandler((event) => {
+    console.log(event)
+    return {
+        hello: 'Hello Word=ld'
+    }
+})
