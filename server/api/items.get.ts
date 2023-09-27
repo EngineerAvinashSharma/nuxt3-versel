@@ -1,6 +1,8 @@
 export default defineEventHandler((event) => {
-    console.log(event)
+
+    const query = getQuery(event)
+    
     return {
-        hello: 'Hello Word=ld'
+        hello: 'world'
     }
 })
