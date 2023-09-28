@@ -23,6 +23,17 @@ export default defineEventHandler(async (event) => {
             })
         }
 
+        let item = await prisma.item.findFirst({
+            where: { id: Number(body) },
+        });
+
+        if (!item) {
+            throw createError({
+                statusCode: 400,
+                statusMessage: 'Item Not Found',
+            })
+        }
+
         body.updated_at = new Date();
 
         const updated: Iitem = await prisma.item.update({

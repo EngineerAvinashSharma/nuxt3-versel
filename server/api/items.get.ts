@@ -32,6 +32,13 @@ export default defineEventHandler(async (event: H3Event): Promise<IResponse> => 
                 where: { id: Number(query.id) }
             });
 
+            if (!item) {
+                throw createError({
+                    statusCode: 404,
+                    statusMessage: 'Item not found'
+                })
+            }
+
             setResponseStatus(event, 200);
 
             let responseToSend: IResponse = { data: item || null }

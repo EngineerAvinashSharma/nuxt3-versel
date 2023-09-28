@@ -7,9 +7,18 @@ import { IGETQuery } from '~/types/request';
 export default defineEventHandler(async (event: H3Event): Promise<IResponse> => {
     try {
 
-        const query: IGETQuery = getQuery(event)
+        const query: IGETQuery = getQuery(event);
 
-        console.log(query.id)
+        let item = await prisma.item.findFirst({
+            where: { id: Number(query.id) },
+        });
+
+        if (!item) {
+            throw createError({
+                statusCode: 400,
+                statusMessage: 'Item Not Found'
+            })
+        }
 
         await prisma.item.delete({
             where: { id: Number(query.id) },
